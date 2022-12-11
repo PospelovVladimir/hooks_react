@@ -1,4 +1,5 @@
 import "./App.css";
+import Hover from "./components/Hover";
 import useInput from "./hooks/useInput";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <input type="text" placeholder="username" {...username}></input>
       <input type="password" placeholder="userpassword" {...userPassword}></input>
       <button onClick={() => showData()}>show</button>
+      <Hover />
     </div>
   );
 }
