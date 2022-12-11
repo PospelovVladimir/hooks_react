@@ -7,9 +7,6 @@ function App() {
   const userPassword = useInput("");
   const showData = () => console.log(`${username.value}, ${userPassword.value}`);
 
-  const showEffect = () => console.log("yes!");
-  const hideEffect = () => console.log("no!");
-
   return (
     <div>
       <input type="text" placeholder="username" {...username}></input>
