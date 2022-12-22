@@ -4,13 +4,15 @@ import Hover from "./components/Hover";
 import useDebounce from "./hooks/useDebounce";
 import List from "./components/List";
 import useInput from "./hooks/useInput";
+import useRequest from "./hooks/useRequest";
 
 function App() {
   const username = useInput("");
   const userPassword = useInput("");
   const showData = () => console.log(`${username.value}, ${userPassword.value}`);
-
   const [searchText, setSearchText] = useState("");
+
+  const [data, loader, error] = useRequest(fetchTodos);
 
   function search(query) {
     fetch(`https://jsonplaceholder.typicode.com/todos?query=${query}`)
@@ -20,12 +22,24 @@ function App() {
       });
   }
 
+  function fetchTodos() {
+    return fetch(`https://jsonplaceholder.typicode.com/todos`);
+  }
+
   const searchDebounce = useDebounce(search, 3000);
 
   const callback = (e) => {
     setSearchText(e.target.value);
     searchDebounce(e.target.value);
   };
+
+  if (loader) {
+    return <div>loading todos...</div>;
+  }
+
+  if (error) {
+    return <>ups, error: {error}</>;
+  }
 
   return (
     <div>
